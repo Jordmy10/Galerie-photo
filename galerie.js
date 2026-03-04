@@ -31,19 +31,19 @@ const images = [
     },
     {
         nom: "Anfield",
-        description: "Clubs de Liverpool",
+        description: "Stade du club de Liverpool",
         categorie: "Clubs ",
         url: "./images/anfield.jpg"
     },
     {
         nom: "Bernabeu",
-        description: "Clubs de Madrid",
+        description: "Stade du club de Madrid",
         categorie: "Clubs ",
         url: "./images/bernabeu.jpg"
     },
     {
         nom: "Camp Nou",
-        description: "Clubs de Barcelone",
+        description: "Stade du club de Barcelone",
         categorie: "Clubs ",
         url: "./images/barca.jpg"
     },
@@ -55,7 +55,7 @@ const images = [
     },
     {
         nom: " Allianz Arena",
-        description: "Clubs de Munich",
+        description: "Stade du club de Munich",
         categorie: "Clubs ",
         url: "./images/allianz.jpg"
     },
@@ -101,7 +101,7 @@ const valCategorie = document.createElement("em")
 
 categorieImg.textContent = "catégorie: "
 descriptionImg.textContent = "description: "
-nomImg.textContent = "nom: "
+nomImg.textContent = "nom:"
 
 categorieImg.append(valCategorie)
 descriptionImg.append(valDescription)
@@ -115,6 +115,7 @@ vignette.append(zoneImage, caracteristiques)
 vignette.classList.add("vignette")
 zoneImage.classList.add("zoneImage")
 img.classList.add("img")
+caracteristiques.classList.add("carac")
 
 function creerVignettes(tableau) {
     for (let i = 0; i < tableau.length; i++) {
@@ -131,8 +132,16 @@ creerVignettes(images)
 const Monuments = document.getElementById("article1")
 const Clubs = document.getElementById("article2")
 const Pays = document.getElementById("article3")
+const tous = document.getElementById("article0")
+
+tous.addEventListener("click", function () {
+    conteneurImages.innerHTML = ""
+    creerVignettes(images)
+    tous.classList.add("active")
+})
 
 Monuments.addEventListener("click", function () {
+    Monuments.classList.add("active")
     const imagesMonuments = images.filter(image => image.categorie === "Monument")
     conteneurImages.innerHTML = ""
     creerVignettes(imagesMonuments)
@@ -142,9 +151,11 @@ Clubs.addEventListener("click", function () {
     const imagesClubs = images.filter(image => image.categorie === "Clubs ")
     conteneurImages.innerHTML = ""
     creerVignettes(imagesClubs)
+    Clubs.classList.add("active")
 })
 
 Pays.addEventListener("click", function () {
+    Pays.classList.add("active")
     const imagesPays = images.filter(image => image.categorie === "Pays")
     conteneurImages.innerHTML = ""
     creerVignettes(imagesPays)
@@ -152,6 +163,8 @@ Pays.addEventListener("click", function () {
 
 const searchInput = document.getElementById("recherche")
 searchInput.addEventListener("input", (event)=>{
-    const value = event.target.value.toLowercase()
-    
+    const value = event.target.value.toLowerCase()
+    const imagesFiltrees = images.filter(image => image.nom.toLowerCase().includes(value))
+    conteneurImages.innerHTML = ""
+    creerVignettes(imagesFiltrees)
 })
